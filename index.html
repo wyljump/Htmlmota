@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        .ico{
+            width: 30%;
+            height: 30%;
+            vertical-align: middle;
+        }
+        .pic{
+            box-sizing: border-box;
+            width: 80%;
+            height: 60%;
+            position: absolute;
+            top:30%;
+            left: 10%;
+            border-style: inset;
+            border-top-color: #f8f8f8;
+            border-left-color:#f8f8f8;
+            border-right-color: #a8a8a8;
+            border-bottom-color: #a8a8a8;
+        }
+        .numtype{
+            font-family: "Matura MT Script Capitals";
+            position: absolute;
+            left: 80%;
+            top: 8%;
+
+        }
+        .skill{
+            font-family: "华康海报体W12(P)";
+            position: absolute;
+            left: 35%;
+            top: 8%;
+
+        }
+        .mycard{
+            width: 100px;
+            height: 150px;
+            background-color: #c5f7ff;
+            position: absolute;
+        }
+        .cardback{
+            width: 100px;
+            height: 150px;
+            background-color: pink;
+            float: left;
+        }
+        .divbox{
+            perspective: 800px;
+            transform-style: preserve-3d;
+            position: absolute;
+            transition: 1.5s;
+        }
+        html,body{
+            width: 100%;
+            height: 800px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        #bigbox{
+            width: 100%;
+            height: 130%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            position: fixed;
+            /*display: flex;*/
+            align-items: center;
+            justify-content: center;
+            display: none;
+        }
+        #innerbox{
+            width: 78%;
+            height: 400px;
+            background-color: white;
+
+        }
+        #innerbox p{
+            /*height:50px ;*/
+            margin-top: 150px;
+            margin-left: 35%;
+            font-size: 30px;
+            position: absolute;
+        }
+        #closebtn{
+            margin-left: 60%;
+            margin-top: 15%;
+            width: 80px;
+            height: 40px;
+            border-radius: 10px;
+            border: 2px solid #44a54a;
+            background-color: white;
+            color: black;
+            font-size: 17px;
+            font-weight: 600;
+        }
+        #closebtn:hover{
+            background-color: #44a54a;
+            color:white;
+        }
+        #rebtn{
+            border-radius: 10px;
+            border: 2px solid #44a54a;
+            background-color: white;
+            color: black;
+            font-size: 17px;
+            font-weight: 600;
+
+        }
+        #rebtn:hover{
+            background-color: #44a54a;
+            color:white;
+        }
+        .count{
+            width: 10%;
+            height: 160px;
+            position: absolute;
+            box-sizing: border-box;
+        }
+        .count img{
+            width: 30%;height:50px;
+        }
+        #mytable{
+            box-sizing: border-box;
+            width: 1500px;
+            height: 800px;
+            margin: auto;
+            margin-top: 100px;
+            background-color: #55A0E6;
+            background-image: url("可能用到的素材/bg3.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #enemybox{
+            box-sizing: border-box;
+            width: 60%;
+            height: 160px;
+            margin: auto;
+        }
+        #compare{
+            width: 100%;
+            height: 480px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        #mybox{
+            box-sizing: border-box;
+            width: 60%;
+            height: 160px;
+            margin: auto;
+
+        }
+        .allcards1,.allcards2{
+            position: relative;
+            transition: all 1.5s;
+            perspective: 800px;
+            transform-style: preserve-3d;
+        }
+        @keyframes ani {
+            30%{transform: translateX(0px)translateY(235px)scale(2)}
+            60%{transform:translateX(0px)translateY(235px)scale(2)rotateY(360deg)}
+            80%{transform:translateX(0px)translateY(235px)scale(2)rotateY(360deg)}
+            100%{transform:translateX(0px)translateY(235px)scale(0)rotateY(360deg)}
+        }
+        @keyframes ani2 {
+            30%{transform:translateX(680px)translateY(-400px)scale(2)}
+            80%{transform:translateX(680px)translateY(-400px)scale(2)}
+            100%{transform:translateX(680px)translateY(-400px)scale(0)}
+        }
+        @keyframes winico {
+            50%{transform:scale(1.5)}
+            100%{transform:scale(1)}
+        }
+        @keyframes textcmp {
+            50%{transform:scale(1.5)}
+            100%{transform:scale(1)}
+        }
+    </style>
+</head>
+<body>
+<div id="bigbox">
+    <div id="innerbox">
+        <p id="resulttext"></p>
+        <button id="closebtn"  onclick="myclose()">关闭</button>
+    </div>
+</div>
+<div id="mytable">
+    <div class="count"></div>
+    <div id="enemybox">
+        <div class="allcards1"></div>
+        <!--对手的手牌-->
+    </div>
+    <div id="compare">
+        <button id="startbtn" style="width: 100px;height: 50px;margin-left: 600px" onclick="mystart(this)">开始</button>
+        <button id="rebtn" style="width: 100px;height: 50px;margin-top: 200px" onclick="allstart()">重新开始</button>
+        <div class="cardback" style="left: 1200px;top: 160px;z-index: 1;background-image: url('可能用到的素材/cardbg2.png');background-repeat: no-repeat;
+            background-size: cover;position: absolute;"></div>
+    </div>
+    <div class="count"></div>
+    <div id="mybox">
+        <div class="allcards2">
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var num1 = [1,2,3,4,5,6,7,8,9,10];
+    var num2 = ['水','火','草'];
+    var num3 = [];
+    var arr = [];//所有卡牌,对象数组
+    for(i=0;i<num1.length;i++){
+        for(n = 0;n<num2.length;n++){
+            num3.push(num2[n]+num1[i]);
+        }
+    }
+    console.log(num3);
+    for(i=0;i<num3.length;i++){
+        var obj = {};
+        if(i%3===0){
+            obj.img1 = '可能用到的素材/水系.png';
+            obj.property = '水'
+        }
+        else if(i%3===1){
+            obj.img1 = '可能用到的素材/火系.png';
+            obj.property = '火'
+        }
+        else if(i%3===2){
+            obj.img1 = '可能用到的素材/草系.png';
+            obj.property = '草'
+        }
+        obj.number = parseInt(i/3)+1;
+        obj.pic ='可能用到的素材/'+( i+1)+'.png';
+        arr.push(obj);
+    }/*生成对象放入数组*/
+    //console.log(arr);
+    Array.prototype.shuffle = function () {
+        var b = JSON.parse(JSON.stringify(this));
+        var temp;
+        for(var i = this.length-1;i>0;i--){
+            var index = Math.floor(Math.random()*i);
+            temp = b[index];
+            b[index] = b[i];
+            b[i] = temp;
+        }
+        return b;
+    };//洗牌算法
+    var result = arr.shuffle(); /*打乱后的数组*/
+    var allcards1 = document.getElementsByClassName('allcards1')[0];
+    var allcards2 = document.getElementsByClassName('allcards2')[0];
+
+    function dealcard() {
+        var allcards2 = document.getElementsByClassName('allcards2')[0];
+        var allcards1 = document.getElementsByClassName('allcards1')[0];
+        allcards2.innerHTML = '';
+        allcards1.innerHTML = '';
+        for(i=0;i<5;i++){
+            /*玩家手牌*/
+            var div = document.createElement('div');
+            var div2 = document.createElement('div');
+            var divbox = document.createElement('div');
+            var img1 = document.createElement('img');
+            var span = document.createElement('span');
+            var img2 =document.createElement('img');
+            div.setAttribute('class','mycard') ;
+            div2.setAttribute('class','cardback');
+            divbox.setAttribute('class','divbox');
+            divbox.setAttribute('onclick','change(this)');
+            //divbox.style.left = i * 110 + "px";
+            img1.src = result[i].img1;
+            img1.setAttribute('class','ico');
+            span.innerHTML = result[i].number;
+            span.setAttribute('class','numtype');
+            img2.src = result[i].pic;
+            img2.setAttribute('class','pic');
+            div.appendChild(img1);
+            div.appendChild(span);
+            div.appendChild(img2);
+            divbox.appendChild(div2);
+            divbox.appendChild(div);
+            allcards2.appendChild(divbox);
+        }/*生成卡牌样式*/
+        for(n = 5;n<10;n++){
+            /*对手手牌*/
+            var div = document.createElement('div');
+            var div2 = document.createElement('div');
+            var divbox = document.createElement('div');
+            var img1 = document.createElement('img');
+            var span = document.createElement('span');
+            var img2 =document.createElement('img');
+            div.setAttribute('class','mycard') ;
+            div2.setAttribute('class','cardback');
+            divbox.setAttribute('class','divbox');
+            img1.src = result[n].img1;
+            img1.setAttribute('class','ico');
+            span.innerHTML = result[n].number;
+            span.setAttribute('class','numtype');
+            img2.src = result[n].pic;
+            img2.setAttribute('class','pic');
+            div.appendChild(img1);
+            div.appendChild(span);
+            div.appendChild(img2);
+            divbox.appendChild(div2);
+            divbox.appendChild(div);
+            allcards1.appendChild(divbox);
+        }
+
+    }/*发牌函数*/
+    function back() {
+        for(var i = 0;i<allcards1.children.length;i++) {
+            allcards1.children[i].style.transform = 'translateX(900px)translateY(320px)';
+        }
+        for(var i = 0;i<allcards2.children.length;i++) {
+            allcards2.children[i].style.transform = 'translateX(900px)translateY(-320px)';
+        }
+    }
+    dealcard();
+    back();//开局将卡移到场外
+
+    function mystart(_this) {
+        for(var i = 0;i<allcards1.children.length;i++) {
+            allcards1.children[i].style.transform = 'translateX('+ i * 110+'px)translateY(0px)';
+
+        }
+        for(var i = 0;i<allcards2.children.length;i++) {
+            allcards2.children[i].style.transform = 'translateX('+ i * 110+'px)translateY(0px)';
+        }
+        _this.disabled = 'none';
+    }
+    var testarr = [0,1,2,3,4];
+    var numcount = 0;
+    var t = 0;
+    function change(_this) {
+        _this.onclick = '';
+        var allcards1 = document.getElementsByClassName('allcards1')[0];
+        var allcards2 = document.getElementsByClassName('allcards2')[0];
+        var count1 = document.getElementsByClassName('count')[0];
+        var count2 = document.getElementsByClassName('count')[1];
+        var img = document.createElement('img');
+        img.src = '可能用到的素材/winimg.png';
+        var temp = parseInt(Math.random()*(testarr.length));
+        var index = testarr[temp];
+       testarr.splice(temp,1);
+        allcards1.children[index].style.animation = 'ani 5s forwards';
+        _this.style.animation = 'ani2 5s forwards';
+        var cmp1 = allcards1.children[index] ;//对手出的牌
+        var icoimg1 = cmp1.children[1].children[0];
+        var icoimg2 = _this.children[1].children[0];
+        t++;
+        setTimeout(mycmp, 3800);
+        function mycmp() {
+            t--;
+            if(Number(cmp1.children[1].children[1].innerHTML)>Number(_this.children[1].children[1].innerHTML)){
+                count1.appendChild(img);
+               // alert('You lose');
+            }
+            else if(Number(cmp1.children[1].children[1].innerHTML)<Number(_this.children[1].children[1].innerHTML)){
+                count2.appendChild(img);
+                //alert('You win');
+            }
+            else {
+                var address1 = cmp1.children[1].children[0].getAttribute('src');//对手卡牌属性图片的地址
+                var address2 = _this.children[1].children[0].getAttribute('src');//我方卡牌属性图片的地址
+                var a = address1.substring(8,9);
+                var b = address2.substring(8,9);
+                if(a =='火'&&b=='草'){
+                    count1.appendChild(img);
+                    //alert('You lose');
+                    icoimg1.style.animation = 'winico 5s forwards';
+                }
+                else if(a =='火'&&b=='水'){
+                    count2.appendChild(img);
+                    //alert('You win');
+                    icoimg2.style.animation = 'winico 5s forwards';
+                }
+                if(a=='水'&&b=='火 '){
+                    count1.appendChild(img);
+                   // alert('You lose');
+                   icoimg1.style.animation = 'winico 5s forwards';
+                }
+                else if(a=='水'&&b=='草'){
+                    count2.appendChild(img);
+                   // alert('You win');
+                    icoimg2.style.animation = 'winico 5s forwards';
+                }
+                if(a=='草'&&b=='水'){
+                    count1.appendChild(img);
+                   // alert('You lose');
+                    icoimg1.style.animation = 'winico 5s forwards';
+                }
+                else if(a=='草'&&b=='火'){
+                    count2.appendChild(img);
+                   // alert('You win');
+                   icoimg2.style.animation = 'winico 5s forwards';
+                }
+            }
+            if( t == 0) {
+               fun();
+            }
+        }
+        t++;
+        setTimeout(icoani, 3000);
+        function icoani() {
+            t--;
+            if(Number(cmp1.children[1].children[1].innerHTML)==Number(_this.children[1].children[1].innerHTML)){
+                var address1 = cmp1.children[1].children[0].getAttribute('src');//对手卡牌属性图片的地址
+                var address2 = _this.children[1].children[0].getAttribute('src');//我方卡牌属性图片的地址
+                var a = address1.substring(8,9);
+                var b = address2.substring(8,9);
+                if(a =='火'&&b=='草'){
+                    icoimg1.style.animation = 'winico 1s forwards';
+                }
+                else if(a =='火'&&b=='水'){
+                    icoimg2.style.animation = 'winico 1s forwards';
+                }
+                if(a=='水'&&b=='火 '){
+                    icoimg1.style.animation = 'winico 1s forwards';
+                }
+                else if(a=='水'&&b=='草'){
+                    icoimg2.style.animation = 'winico 1s forwards';
+                }
+                if(a=='草'&&b=='水'){
+                    icoimg1.style.animation = 'winico 1s forwards';
+                }
+                else if(a=='草'&&b=='火'){
+                    icoimg2.style.animation = 'winico 1s forwards';
+                }
+            }
+            if( t == 0) {
+                console.log('icoani');
+            }
+        }
+        t++;
+        setTimeout(numcmp,3000);
+        function numcmp() {
+            t--;
+            if(Number(cmp1.children[1].children[1].innerHTML)>Number(_this.children[1].children[1].innerHTML)){
+                cmp1.children[1].children[1].style.animation = 'textcmp 1s forwards';
+            }
+            else if(Number(cmp1.children[1].children[1].innerHTML)<Number(_this.children[1].children[1].innerHTML)){
+                _this.children[1].children[1].style.animation = 'textcmp 1s forwards';
+            }
+            if( t == 0) {
+                console.log('numcmp');
+            }
+        }
+        numcount++;
+        console.log(numcount);
+    }//点击事件
+
+    //setTimeout(fun,3000);
+    function fun() {
+        var count1 = document.getElementsByClassName('count')[0];
+        var count2 = document.getElementsByClassName('count')[1];
+        if(numcount == 5){
+            numcount =0;
+            if(count1.children.length>count2.children.length){
+                var bigbox = document.getElementById('bigbox');
+                var resulttext = document.getElementById('resulttext');
+                bigbox.style.display = 'flex';
+                resulttext.innerHTML = 'You lose';
+                //alert('你输了');
+            }
+            else {
+                var bigbox = document.getElementById('bigbox');
+                var resulttext = document.getElementById('resulttext');
+                //bigbox.removeAttribute('display');
+                bigbox.style.display = 'flex';
+                resulttext.innerHTML = 'You win';
+                console.log('22');
+                //alert('你赢了');
+            }
+        }
+
+    }
+    
+    function allstart() {
+        numcount = 0;
+        var btn = document.getElementById('startbtn');
+        var allcards2 = document.getElementsByClassName('allcards2')[0];
+        var allcards1 = document.getElementsByClassName('allcards1')[0];
+        var count1 = document.getElementsByClassName('count')[0];
+        count1.innerHTML = '';
+        var count2 = document.getElementsByClassName('count')[1];
+        count2.innerHTML = '';
+        divbox = document.getElementsByClassName('divbox');
+        for(i = 0;i<5;i++){
+            allcards1.removeChild(allcards1.firstChild);
+            allcards2.removeChild(allcards2.firstChild);
+        }
+
+        result = arr.shuffle();//重新生成打乱的数组
+        dealcard();//生成卡牌
+        back();//回到牌堆
+        testarr = [0,1,2,3,4];
+        btn.removeAttribute('disabled');
+    }//重新开始
+
+    function myclose() {
+        var bigbox = document.getElementById('bigbox');
+        bigbox.style.display = 'none';
+    }
+    
+</script>
+</html>
